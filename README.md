@@ -31,3 +31,10 @@ Flask basic
 
 - **Session 7 part 2**  
 Cont. with data passing and form
+
+*Day 5*
+- **Session 8**  
+Flask HTTP POST - Create (CRUD example on external Github)
+
+- **Session 9**  
+Flask SQLAlchemy - CRUD
