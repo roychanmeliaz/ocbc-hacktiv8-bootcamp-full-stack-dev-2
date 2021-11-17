@@ -1,0 +1,107 @@
+Todo:
+DONE Add more endpoint
+DONE Add local and remote test
+DONE Add validators 
+
+include_relationships = True
+load_instance = True
+
+{
+  "department": "Temp Directing",
+  "gender": 2,
+  "name": "Temp name",
+  "uid": 999999
+}
+
+TEST
+{
+  "department": "TEST DEPARTMENT",
+  "gender": 2,
+  "name": "TEST NAME",
+  "uid": 0,
+  "id": 0
+}
+
+Demo movies
+get
+4762
+43597
+
+Dummy movies
+{
+  "budget": 155000000,
+  "original_title": "Roy The Movie",
+  "overview": "Cinema blockbuster from amateur director",
+  "popularity": 220,
+  "release_date": "2021-01-01",
+  "revenue": 333666999,
+  "tagline": "Enter the World of Roy.",
+  "title": "Roy The Movie",
+  "uid": 999123,
+  "vote_average": 9.9,
+  "vote_count": 25000
+}
+
+TEST
+{
+  "budget": 0,
+  "original_title": "TEST",
+  "overview": "TEST",
+  "popularity": 220,
+  "release_date": "2021-01-01",
+  "revenue": 0,
+  "tagline": "TEST",
+  "title": "TEST",
+  "uid": 0,
+  "vote_average": 0.0,
+  "vote_count": 0
+}
+
+===================================================
+PRESENTASI
+1. GET ALL
+2. POST 2 BIJI
+{
+  "department": "Directing",
+  "gender": 2,
+  "name": "Roychan Meliaz",
+  "uid": 999005
+}
+{
+  "department": "Directing",
+  "gender": 1,
+  "name": "Keysha Maritza",
+  "uid": 999005
+}
+3. POST ULANG SUPAYA CONFLICT
+4. GET ID 7111 dan 7112 MASIH BELUM ADA MOVIES
+5. UPDATE 7112
+6. DELETE 7112
+7. GET MOVIE ALL
+8. ADD MOVIE 7111
+{
+  "budget": 155000000,
+  "original_title": "Roy The Movie",
+  "overview": "Cinema blockbuster from amateur director",
+  "popularity": 220,
+  "release_date": "2021-01-01",
+  "revenue": 333666999,
+  "tagline": "Enter the World of Roy.",
+  "title": "Roy The Movie",
+  "uid": 999123,
+  "vote_average": 9.9,
+  "vote_count": 25000
+}
+9. GET MOVIE 7111 48400 and GET DIRECTOR 7111
+10. PUT MOVIE 7111 48400
+11. DELETE MOVIE
+12. DELETE AGAIN 404 ERR
+13. GET MOVIE 7111 48400 and GET DIRECTOR 7111
+CUSTOM
+14. DIRECTORS COUNT MOVIE READ DESC, TUNGGU LAMA WHY
+15. MOVIES BUDGET FILTER READ DESC
+16. VALIDATORS
+17. TESTING
+heroku run python -a h8ocbc-milestone1-021
+exec(open("test_app.py").read())
+

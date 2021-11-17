@@ -1,0 +1,14 @@
+heroku create hacktiv8-flask-rest-roy-021
+
+heroku addons:create heroku-postgresql:hobby-dev --app hacktiv8-flask-rest-roy-021
+
+heroku config --app hacktiv8-flask-rest-roy-021
+
+DATABASE_URL: postgres://cmptnafmfeiebz:1a7aca0a217cbd585a084c689dafdf4f8c3e019dd20718d9e5a09e8f26f60624@ec2-52-204-72-14.compute-1.amazonaws.com:5432/d5q9773cg061a1
+
+git add .
+git commit -m "update"
+heroku git:remote -a hacktiv8-flask-rest-roy-021
+git push heroku master
+
+

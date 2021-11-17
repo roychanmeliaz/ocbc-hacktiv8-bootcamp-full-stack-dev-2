@@ -1,0 +1,44 @@
+Todo:
+Add more endpoint
+Add local and remote test
+
+include_relationships = True
+load_instance = True
+
+{
+  "department": "Directing",
+  "gender": 2,
+  "name": "Roychan Meliaz",
+  "uid": 999005
+}
+
+7111
+
+{
+  "department": "Temp Directing",
+  "gender": 2,
+  "name": "Temp name",
+  "uid": 999999
+}
+
+
+Demo movies
+get
+4762
+43597
+
+Dummy movies
+{
+  "budget": 155000000,
+  "original_title": "Roy The Movie",
+  "overview": "Cinema blockbuster from amateur director",
+  "popularity": 220,
+  "release_date": "2021-01-01",
+  "revenue": 333666999,
+  "tagline": "Enter the World of Roy.",
+  "title": "Roy The Movie",
+  "uid": 999123,
+  "vote_average": 9.9,
+  "vote_count": 25000
+}
+
