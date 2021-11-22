@@ -1,6 +1,6 @@
 """
-This is the people module and supports all the REST actions for the
-people data
+This is the directors module and supports all the REST actions for the
+directors data
 """
 
 from flask import make_response, abort
@@ -25,12 +25,12 @@ def read_all():
 
 def read_one(id):
     """
-    This function responds to a request for /api/director/{person_id}
-    with one matching person from director
-    :param person_id:   Id of person to find
-    :return:            person matching id
+    This function responds to a request for /api/director/{director_id}
+    with one matching director from directors
+    :param director_id:   Id of director to find
+    :return:            director matching id
     """
-    # Get the person requested
+    # Get the director requested
     directors = (
         Directors.query.filter(Directors.id == id)
         .outerjoin(Movies)
@@ -45,11 +45,11 @@ def read_one(id):
         data = directors_schema.dump(directors)
         return data
 
-    # Otherwise, nope, didn't find that person
+    # Otherwise, nope, didn't find that director
     else:
         abort(
             404,
-            "Person not found for Id: {id}".format(id=id),
+            "Director not found for Id: {id}".format(id=id),
         )
 
 
@@ -103,9 +103,9 @@ def create(director):
 
 def update(id, director):
     """
-    This function updates an existing director in the people structure
+    This function updates an existing director in the directors structure
 
-    :param id:   Id of the director to update in the people structure
+    :param id:   Id of the director to update in the directors structure
     :param director:      director to update
     :return:            updated director structure
     """
@@ -150,21 +150,21 @@ def update(id, director):
 
 def delete(id):
     """
-    This function deletes a person from the people structure
+    This function deletes a director from the directors structure
 
-    :param id:   Id of the person to delete
+    :param id:   Id of the director to delete
     :return:            200 on successful delete, 404 if not found
     """
-    # Get the person requested
+    # Get the director requested
     person = Directors.query.filter(Directors.id == id).one_or_none()
 
-    # Did we find a person?
+    # Did we find a director?
     if person is not None:
         db.session.delete(person)
         db.session.commit()
         return make_response(f"Director {id} deleted", 200)
 
-    # Otherwise, nope, didn't find that person
+    # Otherwise, nope, didn't find that director
     else:
         abort(404, f"Director not found for Id: {id}")
 
@@ -186,3 +186,17 @@ def count():
         sub["count"]=len(sub["movies"])
         del sub["movies"]
     return sorted(data, key = lambda i: i['count'], reverse=True)
+
+def nameFilter(name):
+    """
+    This function responds to a request for /api/director/nameFilter
+    with the complete lists of director
+    :return:        json string of list of director
+    """
+    # Create the list of directors from our data
+    directors = Directors.query.order_by(Directors.id).filter(Directors.name.ilike('%'+name+'%')).limit(100).all()
+
+    # Serialize the data for the response
+    directors_schema = DirectorsSchema(many=True)
+    data = directors_schema.dump(directors)
+    return data

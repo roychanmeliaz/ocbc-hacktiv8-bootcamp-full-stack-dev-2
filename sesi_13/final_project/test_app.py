@@ -23,7 +23,7 @@ class FlaskTestCase(unittest.TestCase):
         self.assertEqual(response.status_code,200)
 
     # 3
-    # test the response code of get directors api 404 data, should return 200
+    # test the response code of get directors api 404 data, should return 404
     def test_get_directors_nonexistent_response(self):
         connex_app.app.testing = True
         tester = connex_app.app.test_client(self)
