@@ -1,0 +1,17 @@
+https://codeshare.io/kmKELM
+
+URL: https://github.com/easterneas/fsd-2-react-b1
+format branch: <no_absen>-<nama_panggilan>
+contoh: 999-eas
+
+git clone
+git checkout -b <nama_branch>
+git push origin <nama_branch> 
+
+Improve:
+TS
+Card
+Read more jadi full article
+Back
+Animation
+Load
