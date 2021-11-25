@@ -9,9 +9,18 @@ git checkout -b <nama_branch>
 git push origin <nama_branch> 
 
 Improve:
-TS
-Card
-Read more jadi full article
-Back
+check TS
+check Card
+check Read more jadi full article
+check Back
 Animation
 Load
+
+Jelasin:
+Jalanin tanpa python dulu, test error
+Pake typescript, bikin interface
+Pake MUI
+Pake Card
+Format date
+Motong kalimat pertama (ambil titik pertama)
+Read more pake modal
