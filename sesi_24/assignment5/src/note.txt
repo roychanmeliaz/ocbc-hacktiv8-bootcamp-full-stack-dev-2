@@ -1,0 +1,13 @@
+todo:
+
+bikin tidak ada antrian kalo kosong ✅
+bikin sistem atomic ✅
+ui antrian dibagusin ✅
+arrow di paling bawah dihapus ✅
+bikin sistem undo ✅
+feedback snackbar ✅
+tambah index ✅
+geser atas bawah ✅
+bikin tambah avatar ✅
+form validation? ✅
+deploy ✅

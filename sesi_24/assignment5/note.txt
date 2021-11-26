@@ -1,0 +1,10 @@
+todo:
+
+bikin tidak ada antrian
+ui antrian dibagusin
+arrow di paling bawah dihapus
+bikin sistem undo
+feedback snackbar
+tambah index
+geser atas bawah
+bikin tambah avatar

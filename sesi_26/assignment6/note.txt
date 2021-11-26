@@ -1,0 +1,7 @@
+redux persistent?
+
+todo:
+state isinya array of object of kanban
+settimeout utk thunk
+loading bar
+
