@@ -1,0 +1,13 @@
+crud 75 (masing2 15*5)
+redux 10
+tampilan 5
+
+additionals (5 max 2)
+websocket
+router
+ts
+validation
+signin
+deploy bf fe
+pwa
+
