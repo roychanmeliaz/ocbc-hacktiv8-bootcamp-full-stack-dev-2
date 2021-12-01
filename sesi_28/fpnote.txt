@@ -1,13 +1,37 @@
-crud 75 (masing2 15*5)
-redux 10
-tampilan 5
+crud 75 (masing2 15*5) ✅
+redux 10 ✅
+tampilan 5 ✅
 
 additionals (5 max 2)
 websocket
 router
-ts
-validation
+ts ✅
+validation ✅
 signin
 deploy bf fe
 pwa
 
+TODO:
+
+must done:
+read ✅
+add ✅
+edit ✅
+delete ✅
+more
+debug (router) on appbar
+
+extra:
+snackbar ✅
+modal
+validation ✅
+ts ✅
+tampilan ✅
+check auto inc?
+key available
+loading
+
+Tanya
+Get return from redux thunk
+Punya 2 db
+combine reducer?
