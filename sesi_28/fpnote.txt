@@ -4,7 +4,7 @@ tampilan 5 ✅
 
 additionals (5 max 2)
 websocket
-router
+router ✅
 ts ✅
 validation ✅
 signin
@@ -18,20 +18,22 @@ read ✅
 add ✅
 edit ✅
 delete ✅
-more
+more ✅
 debug (router) on appbar
 
 extra:
 snackbar ✅
-modal
+modal ✅
 validation ✅
 ts ✅
 tampilan ✅
 check auto inc?
-key available
-loading
+key available ✅
+loading✅
 
-Tanya
-Get return from redux thunk
-Punya 2 db
-combine reducer?
+
+demo
+validator
+404
+failsave tiap api
+loading

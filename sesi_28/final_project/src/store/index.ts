@@ -2,6 +2,9 @@ import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 
 const initialState = {
+    loading: {
+        status: false
+    },
     lastOperation: {
         status: "", // "", "success", or "error"
         message: "",
@@ -18,6 +21,8 @@ const people = (state=initialState, action:any) => {
             return { ...state, lastOperation: action.data }
         case 'SET_PEOPLE':
             return { ...state, people: action.data }
+        case 'SET_LOADING':
+            return { ...state, loading: action.data }
         default:
             return state
     }

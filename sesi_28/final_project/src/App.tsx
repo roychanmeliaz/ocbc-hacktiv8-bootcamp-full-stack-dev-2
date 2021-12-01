@@ -1,12 +1,14 @@
+import { Outlet } from 'react-router';
 import './App.css';
 import AppBarComponent from './components/appbar';
-import MainComponent from './components/main/main';
+import LoadingModalComponent from './modularComponents/loadingModal';
 
 function App() {
   return (
     <>
       <AppBarComponent />
-      <MainComponent />
+      <LoadingModalComponent />
+      <Outlet />
     </>
   );
 }

@@ -3,26 +3,22 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
+import { useNavigate } from "react-router-dom";
 
 function AppBarComponent() {
+    let navigate = useNavigate()
+    function goHome() {
+        navigate(`/`, { replace: true });
+    }
     return (
-
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                {/* <IconButton
-                    size="large"
-                    edge="start"
-                    color="inherit"
-                    aria-label="menu"
-                    sx={{ mr: 2 }}
-                >
-                </IconButton> */}
-                {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign:"center"}}> */}
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1}}>
-                    FINAL PROJECT - Roy 021
+                    CRUD - Roy 021
                 </Typography>
-                <Button color="inherit">DEBUG</Button>
+                <Button onClick={goHome} color="inherit">HOME</Button>
+                {/* <Button color="inherit">DEBUG</Button> */}
                 </Toolbar>
             </AppBar>
         </Box>

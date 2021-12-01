@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, } from "@mui/material";
 import { DataGrid, GridApi, GridColDef, GridValueGetterParams } from "@mui/x-data-grid"
 import { FC, useEffect, useState } from "react";
 
@@ -8,6 +8,7 @@ import {
     useSelector,   //ambil state dari sebuah store
 } from 'react-redux'
 import { getAllPeople, deletePeople, getPeople } from '../../store/action';
+import { useNavigate } from "react-router-dom";
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -19,9 +20,9 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: 200,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
+//   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 };
@@ -31,7 +32,16 @@ interface Props {
 }
 
 const TableComponent:FC<Props> = (props) => {
+    let navigate = useNavigate();
 
+    const [selectedName, setSelectedName] = useState("")
+    const [selectedKey, setSelectedKey] = useState()
+    function deletePerson() {
+        dispatch(deletePeople(selectedKey))
+        handleClose()
+    }
+
+    // table column
     const columns: GridColDef[] = [
         { field: 'key', headerName: 'Key', width: 70 },
         { field: 'firstName', headerName: 'First name', width: 130 },
@@ -53,8 +63,7 @@ const TableComponent:FC<Props> = (props) => {
                     fields.forEach((f) => {
                       thisRow[f] = params.getValue(params.id, f);
                     });
-                    dispatch(getPeople(thisRow["key"]))
-                    // return alert(JSON.stringify(thisRow, null, 4));
+                    navigate(`/person/${thisRow["key"]}`, { replace: true });
                 };
             
                 return (
@@ -99,7 +108,19 @@ const TableComponent:FC<Props> = (props) => {
             disableColumnMenu:true,        
             renderCell: (params) => {
                 const onClick = () => {
-                    dispatch(deletePeople(params.getValue(params.id,"key")))
+                    const api: GridApi = params.api;
+                    const fields = api
+                      .getAllColumns()
+                      .map((c) => c.field)
+                      .filter((c) => c !== "__check__" && !!c);
+                    const thisRow: any = {};
+                
+                    fields.forEach((f) => {
+                      thisRow[f] = params.getValue(params.id, f);
+                    });
+                    setSelectedName(`${thisRow['firstName']} ${thisRow['lastName']}`)
+                    setSelectedKey(thisRow['key'])
+                    handleOpen()
                 };
             
                 return (
@@ -110,7 +131,6 @@ const TableComponent:FC<Props> = (props) => {
             }
         },
     ];
-    
 
     // modal
     const [open, setOpen] = useState(false);
@@ -144,11 +164,13 @@ const TableComponent:FC<Props> = (props) => {
         >
             <Box sx={style}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-                Text in a modal
+                Delete
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
+                Delete {selectedName}?
+            </Typography><br/><br/>
+            <Button onClick={deletePerson}>Delete</Button>
+            <Button onClick={handleClose}>Cancel</Button>
             </Box>
         </Modal>
         <div style={{ height: 390, width: '100%' }}>

@@ -7,11 +7,23 @@ import reportWebVitals from './reportWebVitals';
 // redux
 import store from './store';
 import { Provider } from 'react-redux';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import NotFound from './components/notFound';
+import MainComponent from './components/main/main';
+import PersonComponent from './components/person';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-    <App />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route index element={<MainComponent />}/>
+            <Route path="person/:id" element={<PersonComponent />}/>
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

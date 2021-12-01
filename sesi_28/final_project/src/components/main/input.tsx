@@ -8,7 +8,7 @@ import {
     useSelector,   //ambil state dari sebuah store
 } from 'react-redux'
 import { addPeople, editPeople, getAllPeople, resetLastOperation } from '../../store/action';
-import { styled } from "@mui/system";
+import axios from "axios";
 
 export interface InputInterface {
     key:string,
@@ -28,7 +28,6 @@ const InputComponent:FC<Props> = (props)=>{
     const [inputCanErr, setinputCanErr] = useState(true)
 
     const [inputKey, setInputKey] = useState("")
-    const [inputKeyColor, setInputKeyColor] = useState("green")
     const [inputKeyErr, setInputKeyErr] = useState(false)
     const [inputKeyErrMessage, setInputKeyErrMessage] = useState("")
     const [inputKeyDisabled, setInputKeyDisabled] = useState(false)
@@ -56,23 +55,8 @@ const InputComponent:FC<Props> = (props)=>{
     const state:any = useSelector((state)=>state)
     const dispatch = useDispatch()
 
-    // validation field
-    const ValidationTextField = styled(TextField)({
-        '& input:valid + fieldset': {
-            borderColor: inputKeyColor,
-            borderWidth: 2,
-        },
-        "&.MuiFormHelperText-root.Mui-error" :{
-            color: 'green',
-        },
-    });
-
     // on init
     useEffect(()=>{
-        setTimeout(()=>{
-            setInputKeyColor("blue")
-        },2000)
-
         if (state.lastOperation.status!=="") {
             dispatch(resetLastOperation())          
             setOpenSnackbar(true)
@@ -81,9 +65,12 @@ const InputComponent:FC<Props> = (props)=>{
         }
     },[state.lastOperation])
 
-    // changes in inputMode or select edit
-    useEffect(()=>{
+    // reset the form
+    function resetForm() {
         if (props.inputMode==="edit") {
+            setInputKeyErr(false)
+            setInputKeyErrMessage("")
+            
             setInputKey(props.inputValue.key)
             setInputKeyDisabled(true)
             setInputFirstName(props.inputValue.firstName)
@@ -100,11 +87,17 @@ const InputComponent:FC<Props> = (props)=>{
                 setInputFirstNameErrMessage("")
                 setInputLastNameErrMessage("")
             },10)
+            console.log("WOY")
             setInputKey("")
             setInputKeyDisabled(false)
             setInputFirstName("")
             setInputLastName("")
         }
+    }
+
+    // changes in inputMode or select edit
+    useEffect(()=>{
+        resetForm()
     },[props.inputMode, props.inputValue.key])
 
     // validate key only on change
@@ -122,10 +115,7 @@ const InputComponent:FC<Props> = (props)=>{
         validateLastName()
     }, [inputLastName])
 
-    // useEffectNonInit(()=>{
-    //     setinputCanErr(true)        
-    // },[inputKey,inputFirstName,inputLastName])
-
+    // validate key function
     const validateKey=()=>{
         if (inputKey.length===0) {
             setInputKeyErr(true)
@@ -145,6 +135,7 @@ const InputComponent:FC<Props> = (props)=>{
         return true
     }
 
+    // validate fname function
     const validateFirstName=()=>{
         if (inputFirstName.length===0) {
             setInputFirstNameErr(true)
@@ -170,6 +161,7 @@ const InputComponent:FC<Props> = (props)=>{
     return true
     }
 
+    // validate lname function
     const validateLastName=()=>{
         if (inputLastName.length===0) {
             setInputLastNameErr(true)
@@ -195,6 +187,7 @@ const InputComponent:FC<Props> = (props)=>{
         return true
     }
 
+    // validate all
     const checkValidate = () => {
         let passValidation = true
 
@@ -208,6 +201,7 @@ const InputComponent:FC<Props> = (props)=>{
         return passValidation
     }
 
+    // add person on click
     const handleSubmit = () => {
         if (checkValidate()) {
             dispatch(addPeople({
@@ -215,10 +209,12 @@ const InputComponent:FC<Props> = (props)=>{
                 firstName: inputFirstName,
                 lastName: inputLastName
             }))
+            resetForm()
         }
         console.log("submitting")
     }
 
+    // edit person on click
     const handleEdit = () => {
         if (checkValidate()) {
             dispatch(editPeople({
@@ -231,31 +227,33 @@ const InputComponent:FC<Props> = (props)=>{
         console.log("submitting")
     }
 
+    function checkInputtedKey() {
+        if (validateKey() && props.inputMode==="add") {
+            console.log("now checking key...")
+            axios.get(`http://localhost:5000/keys/${inputKey}`)
+            .then((response:any) => {
+                setInputKeyErr(true)
+                setInputKeyErrMessage(`Key ${inputKey} has been used`)
+            })
+            .catch((error:any) => {
+                setInputKeyErr(false)
+                setInputKeyErrMessage(`Key ${inputKey} available`)
+            })
+        }
+    }
+
     return (
         <>
-            {/* <form onSubmit={handleSubmit}> */}
-            {/* <div>
-            <ValidationTextField
-                label="CSS validation style"
-                required
-                variant="outlined"
-                defaultValue="Success"
-                id="validation-outlined-input"
-                helperText="Key 021 available"
-                fullWidth
-            />
-            </div> */}
-
             {/* snackbar */}
             <Stack spacing={2} sx={{ width: '100%' }}>
                 <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleClose}>
                     <Alert onClose={handleClose} severity={snackType} sx={{ width: '100%' }}>
-                        {/* {snackType==="success" ? "Add task success!" : "Input 5-20 characters only!"} */}
                         {snackBarMessage}
                     </Alert>
                 </Snackbar>
             </Stack>
 
+            {/* input field */}
             <div>
                 <TextField 
                 onChange={event => setInputKey(event.target.value)}
@@ -263,6 +261,7 @@ const InputComponent:FC<Props> = (props)=>{
                 error={inputKeyErr && inputCanErr}
                 helperText={inputKeyErrMessage}
                 disabled={inputKeyDisabled}
+                onBlur={checkInputtedKey}
                 id="inputKey" label="Key (number)" variant="outlined" fullWidth/>
             </div>
             <div>
@@ -286,7 +285,6 @@ const InputComponent:FC<Props> = (props)=>{
                 <div>
                     <Button
                     onClick={handleSubmit}
-                    // type="submit"
                     variant="outlined" fullWidth >Add</Button>
                 </div>
                 :
@@ -294,18 +292,15 @@ const InputComponent:FC<Props> = (props)=>{
                 <div>
                     <Button
                     onClick={handleEdit}
-                    // type="submit"
                     variant="outlined" fullWidth >Edit</Button>
                 </div>
                 <div>
                     <Button
                     onClick={() => props.cancelEdit()}
-                    // type="submit"
                     variant="outlined" fullWidth >Cancel</Button>
                 </div>
                 </>
             }
-            {/* </form> */}
         </>
     )
 }
