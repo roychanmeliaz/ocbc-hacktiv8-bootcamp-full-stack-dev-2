@@ -38,3 +38,5 @@ Flask HTTP POST - Create (CRUD example on external Github)
 
 - **Session 9**  
 Flask SQLAlchemy - CRUD
+
+...
